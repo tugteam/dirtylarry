@@ -142,9 +142,9 @@ function dirtylarry.input(self, node, action_id, action, type, empty_text)
         local active_node_bg = gui.get_node(input_node.id .. "/bg")
         local active_node_cursor = gui.get_node(input_node.id .. "/cursor")
         input_node.active = false
-        gui.cancel_animation(active_node_bg, "color")
+        gui.cancel_animations(active_node_bg, "color")
         gui.animate(active_node_bg, "color", dirtylarry.colors.base, gui.EASING_OUTCUBIC, 0.2)
-        gui.cancel_animation(active_node_cursor, "color")
+        gui.cancel_animations(active_node_cursor, "color")
         gui.animate(active_node_cursor, "size", vmath.vector3(0, 48, 0), gui.EASING_OUTCUBIC, 0.1)
     end
 
@@ -202,8 +202,8 @@ function dirtylarry.input(self, node, action_id, action, type, empty_text)
         text_output = dirtylarry.active_node.data .. dirtylarry.active_input_marked
 
         -- get text metrics for both raw input data and marked text
-        local m_t = gui.get_text_metrics(gui.get_font(node_content), dirtylarry.active_node.data, 0, false, 0, 0)
-        local m_m = gui.get_text_metrics(gui.get_font(node_content), dirtylarry.active_input_marked, 0, false, 0, 0)
+        local m_t = resource.get_text_metrics(gui.get_font_resource(gui.get_font(node_content)), dirtylarry.active_node.data, { width = 0, line_break = false, leading = 0, tracking = 0 })
+        local m_m = resource.get_text_metrics(gui.get_font_resource(gui.get_font(node_content)), dirtylarry.active_input_marked, { width = 0, line_break = false, leading = 0, tracking = 0 })
 
         -- set cursor (and marked text bg)
         gui.set_position(node_cursor, vmath.vector3(4 + m_t.width, 0, 0))
